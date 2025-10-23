@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brutalist — Finlee Spearing</title>
+
+  <!-- Fonts (match Collections) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ink:#111111;
+      --red:#e52b1b;
+      --blue:#1f2aa0;
+      --yellow:#f6d32d;
+      --paper:#b6b8c1;
+      --paper-2:#c5c7cf;
+      --pink:#fb00ff;
+      --panel:#ffffff;
+    }
+
+    /* Background grid (same as Collections) */
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Bebas Neue", sans-serif;
+      background:
+        repeating-linear-gradient(to right, rgba(17,17,17,0.06) 0 1px, transparent 1px 24px),
+        repeating-linear-gradient(to bottom, rgba(17,17,17,0.045) 0 1px, transparent 1px 24px),
+        linear-gradient(0deg, var(--paper-2), var(--paper));
+      background-attachment: fixed;
+    }
+
+    /* Header / banner (copied styling) */
+    .site-header {
+      position: sticky; top: 0; z-index: 1000;
+      background: var(--ink); color: #fff;
+      border-bottom: 6px solid var(--red);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 30px;
+      font-family: "Space Grotesk", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing:.5px;
+    }
+    .brand { font-size: 22px; }
+    .nav-links { list-style:none; display:flex; gap:22px; margin:0; padding:0; }
+    .nav-links a{ color:#fff; text-decoration:none; font-size:15px; padding:4px 10px; border:2px solid transparent; transition:.2s; }
+    .nav-links a:hover{ background:var(--red); border-color:var(--ink); }
+    .nav-links a.active{ background:var(--yellow); color:var(--ink); border:2px solid var(--ink); }
+
+    main{ margin:36px 24px; position:relative; }
+
+    /* Page title — same vibe with red offset */
+    h1.title{
+      font-family:"Bebas Neue",sans-serif; text-transform:uppercase; letter-spacing:2px;
+      font-size: clamp(56px, 8vw, 110px); line-height:.9; margin:10px 0 6px; display:inline-flex; gap:.25em;
+      position:relative;
+    }
+    .title .word{ position:relative; color:var(--panel); }
+    .title .word::before{
+      content:attr(data-shadow); position:absolute; inset:0; transform:translate(10px,10px); color:var(--blue); z-index:-1;
+    }
+
+    .intro{
+      font-family:"Space Grotesk",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      font-weight:700; font-size:clamp(18px,1.6vw+8px,26px); max-width:48ch; line-height:1.15;
+      margin:10px 0 22px; letter-spacing:.2px;
+    }
+
+    /* Frames that match poster cards */
+    .frames{ display:grid; grid-template-columns: repeat(3, minmax(220px, 1fr)); gap:22px; max-width:1300px; }
+    @media (max-width:1100px){ .frames{ grid-template-columns: repeat(2, minmax(220px, 1fr)); } }
+    @media (max-width:640px){ .frames{ grid-template-columns: 1fr; } }
+
+    .frame{
+      position:relative; background:#fff; border:6px solid var(--ink); box-shadow:10px 10px 0 var(--ink);
+      aspect-ratio: 3 / 4; overflow:hidden;
+    }
+    .frame img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .frame-label{ position:absolute; left:10px; bottom:10px; background:#fff; color:var(--pink); border:3px solid var(--ink); padding:6px 10px; font-family:"Space Grotesk",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:1px; font-size:14px; box-shadow:6px 6px 0 var(--ink); }
+
+    .moodboard{ grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+
+    /* Panels for write-up, head sheet, mixing log */
+    .panel{
+      background: var(--panel);
+      border:6px solid var(--ink);
+      box-shadow:10px 10px 0 var(--ink);
+      padding:18px 16px 16px;
+      margin:22px 0;
+      font-family:"Space Grotesk", sans-serif;
+    }
+    .panel h2{
+      margin:0 0 8px; font-size:28px; line-height:1; text-transform:uppercase; letter-spacing:1px;
+    }
+    .panel p, .panel li{ font-size:18px; line-height:1.45; }
+
+    /* Landscape head sheet frame */
+.headsheet-frame {
+  position: relative;
+  background: #fff;
+  border: 6px solid var(--ink);
+  box-shadow: 10px 10px 0 var(--ink);
+  overflow: hidden;
+  margin: 20px auto;           /* centers it */
+  max-width: 900px;            /* scales it down */
+}
+
+.headsheet-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: #fff;
+}
+
+.headsheet-label {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  background: #fff;
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  padding: 6px 10px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  box-shadow: 6px 6px 0 var(--ink);
+}
+    /* Table styling like a zine grid */
+    table{ width:100%; border-collapse: collapse; font-family:"Space Grotesk", sans-serif; font-size:16px; }
+    th, td{ border:3px solid var(--ink); padding:10px; text-align:left; }
+    thead th{ background:#eee; }
+  </style>
+</head>
+<body>
+  <!-- HEADER (same as Collections) -->
+  <header class="site-header">
+    <div class="brand">Finlee Spearing</div>
+    <ul class="nav-links">
+      <li><a href="index.html">About Me</a></li>
+      <li><a href="collections.html" class="active">Collections</a></li>
+      <li><a href="photography.html">Photography</a></li>
+       <li><a href="tools.html">Tools</a></li>
+        <li><a href="education.html">Education</a></li>
+      </ul>
+  </header>
+
+  <main>
+    <!-- Title -->
+    <h1 class="title">
+      <span class="word" data-shadow="BAU">BAU</span>
+    </h1>
+    <p class="intro">Editorial breakdown of the project: imagery, mood, process, head sheet, and precise mixing notes.</p>
+
+    <!-- 3 portraits + moodboard (placeholders) -->
+    <section class="frames" aria-label="BAU Imagery">
+      <div class="frame">
+        <img src="/Users/finleespearing/Desktop/My website/images/write up pages/Bau writup page/bau.png" alt="Thumbnail for Collection 2">
+        <span class="frame-label">Portrait 1</span>
+      </div>
+      <div class="frame">
+         <img src="/Users/finleespearing/Desktop/My website/images/write up pages/Bau writup page/2.png" alt="Thumbnail for Collection 2">
+        <span class="frame-label">Portrait 2</span>
+      </div>
+      <div class="frame">
+         <img src="/Users/finleespearing/Desktop/My website/images/write up pages/Bau writup page/3.png" alt="Thumbnail for Collection 2">
+        <span class="frame-label">Portrait 3</span>
+      </div>
+       <div class="frame">
+         <img src="/Users/finleespearing/Desktop/My website/images/write up pages/Bau writup page/Bau Left.png" alt="Thumbnail for Collection 2">
+        <span class="frame-label">Portrait 4</span>
+      </div>
+       <div class="frame">
+         <img src="/Users/finleespearing/Desktop/My website/images/write up pages/Bau writup page/Bau Back.png" alt="Thumbnail for Collection 2">
+        <span class="frame-label">Portrait 5</span>
+      </div>
+      <div class="frame moodboard">
+         <img src="/Users/finleespearing/Desktop/My website/images/write up pages/Bau writup page/moodboard Bau.png" alt="Thumbnail for Collection 2">
+        <span class="frame-label">Moodboard</span>
+      </div>
+    </section>
+
+    <!-- Write-up (edit in VS Code) -->
+   <section class="panel">
+  <h2>Write-up</h2>
+  </div>
+  <p>This look draws from the Bauhaus movement — a place where art met function, and design became a language of shape, colour, and clarity. I’ve always been drawn to its balance of playfulness and precision — the idea that structure doesn’t have to be rigid, and simplicity doesn’t mean minimal thought.</p>
+  <p>I wanted to explore how colour can exist as design, not decoration. Using sponges cut into geometric forms, I printed red, blue, and yellow directly onto the hair — a modern take on Bauhaus composition, built on instinct and balance rather than strict symmetry.</p>
+  <p>The haircut itself was kept clean and sharp to let the colour lead — a stripped-back foundation that allowed the form and placement to speak. The result feels graphic yet wearable, abstract yet purposeful — like Bauhaus itself.</p>
+  <p>It’s a reminder that concepts don’t need to be complicated to hold meaning. Sometimes the strongest ideas are the simplest ones — those that combine curiosity, craft, and clarity in equal measure.</p>
+</section>
+
+
+    <!-- Head Sheet with landscape image placeholder above -->
+    <div class="headsheet-frame">
+      <img src="/Users/finleespearing/Desktop/My website/images/write up pages/Bau writup page/Bau Head Sheet.png" alt="Head Sheet Landscape Placeholder">
+      <span class="headsheet-label">Head Sheet Image</span>
+    </div>
+
+    <section class="panel">
+      <h2>Information</h2>
+      <p><strong>Date</strong>: 08/07/25</p>
+      <p><strong>Model</strong>: e_r_coll (Ethan Coll)</p>
+      <p><strong>MUA</strong>: bethanybeatssmith</p>
+      <p><strong>Natural Base</strong>: 6</p>
+    </section>
+
+    <!-- Mixing Log -->
+    <section class="panel">
+      <h2>Mixing Log</h2>
+      <div style="overflow:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Technique</th>
+              <th>Brand</th>
+              <th>Shade</th>
+              <th>Ratio</th>
+              <th>Timing</th>
+              <th>Placement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Scalp Bleach</td>
+              <td>Loreal</td>
+              <td>8 levels Multi Techniques</td>
+              <td>1:3</td>
+              <td>20vol</td>
+              <td>50 Mins</td>
+            </tr>
+            <tr>
+              <td>Toner</td>
+              <td>Loreal (DIA LIGHT)</td>
+              <td>10</td>
+              <td>1:1.5</td>
+              <td>9 vol</td>
+              <td>15 Mins</td>
+            </tr>
+            <tr>
+              <td>RED SQUARE</td>
+              <td>Loreal (DIA LIGHT)</td>
+              <td>Red Booster</td>
+              <td>1:1.5</td>
+              <td>9 vol</td>
+              <td>20 Mins</td>
+            </tr>
+            <tr>
+              <td>BLUE SQUARE</td>
+              <td>Loreal (DIA LIGHT)</td>
+              <td>BLUE Booster</td>
+              <td>1:1.5</td>
+              <td>9 vol</td>
+              <td>20 Mins</td>
+            </tr>
+            <tr>
+              <td>YELLOW TRIANGLE</td>
+              <td>Loreal (DIA LIGHT)</td>
+              <td>YELLOW Booster</td>
+              <td>1:1.5</td>
+              <td>9 vol</td>
+              <td>20 Mins</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
